@@ -1,0 +1,45 @@
+--ARMAS--
+canhao
+data/icons/canhao
+1.0
+15
+CS	data/miras/canhao.gif
+metralha
+data/icons/metralha
+1.5
+90
+150
+drone
+data/icons/drone
+131	404
+40
+5
+CS	data/miras/drone.gif
+--INIMIGOS--
+0	0	grande
+10	0	grande
+20	0	pequeno
+30	0	grande
+40	0	grande
+80	1	pequeno	0	grande
+100	1	pequeno	0	grande
+140	0	pequeno
+150	0	pequeno
+180	1	grande
+220	1	pequeno
+230	0	grande
+240	0	pequeno
+250	1	grande
+260	1	pequeno
+291	0	pequeno
+292	0	pequeno
+293	0	pequeno
+294	0	pequeno
+295	0	pequeno
+296	0	grande
+299	1	grande	0	pequeno
+300	1	grande	0	pequeno
+310	1	grande
+320	0	grande
+330	0	grande	0	pequeno
+350	0	grande	0	pequeno

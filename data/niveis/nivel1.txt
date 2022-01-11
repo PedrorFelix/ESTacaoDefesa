@@ -1,0 +1,25 @@
+--ARMAS--
+canhao
+data/icons/canhao
+1.0
+15
+CS	data/miras/canhao.gif
+--INIMIGOS--
+0	0	grande
+20	1	pequeno
+40	0	pequeno
+60	1	grande
+80	0	grande
+100	1	grande
+120	0	grande
+140	1	pequeno
+160	0	grande
+180	1	grande
+185	1	pequeno
+190	1	pequeno
+195	1	pequeno
+200	1	grande
+205	1	pequeno
+210	1	pequeno
+215	1	pequeno
+220	1	grande

@@ -1,0 +1,36 @@
+--ARMAS--
+canhao
+data/icons/canhao
+1.0
+15
+CS	data/miras/canhao.gif
+metralha
+data/icons/metralha
+1.5
+90
+150
+drone
+data/icons/drone
+131	404
+40
+5
+CS	data/miras/drone.gif
+laser
+data/icons/laser
+50	10
+missil
+data/icons/missil
+2.5
+20
+15
+--INIMIGOS--
+0	0	grande
+20	1	blindado
+40	0	grande
+60	1	grande
+80	0	grande
+100	1	grande
+120	0	grande
+140	1	pequeno
+160	0	grande
+180	1	pequeno
