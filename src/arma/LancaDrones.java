@@ -143,4 +143,10 @@ public class LancaDrones extends ArmaDefault {
 		return hangar;
 	}
 
+	@Override
+	public void aceita(VisitanteArmas v) {
+		v.visitaLancaDrones(this);
+		
+	}
+
 }

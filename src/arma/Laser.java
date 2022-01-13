@@ -150,5 +150,11 @@ public class Laser extends ArmaDefault {
 	public float getFatorArrefecimento() {
 		return fatorArrefecimento;
 	}
+
+	@Override
+	public void aceita(VisitanteArmas v) {
+		v.visitaLaser(this);
+		
+	}
 	
 }

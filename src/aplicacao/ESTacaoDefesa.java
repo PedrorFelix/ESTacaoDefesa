@@ -171,7 +171,7 @@ public class ESTacaoDefesa extends JFrame {
 		// Ao carregar em space é preciso mostrar
 		// a janela de configuração da arma
 		if( teclado.estaPremida( KeyEvent.VK_SPACE ) ){
-			configurador.configuraArma( armaAtual );
+			armaAtual.aceita(configurador);
 		}
 		
 		// vai atualizar todos os elementos do jogo

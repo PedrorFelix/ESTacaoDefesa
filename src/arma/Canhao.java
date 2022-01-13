@@ -86,5 +86,11 @@ public class Canhao extends ArmaDefault {
 		mira.setPosicaoCentro( new Point(cx, cy) );
 		mira.desenhar(g);
 	}
+
+	@Override
+	public void aceita(VisitanteArmas v) {
+		v.visitaCanhao(this);
+		
+	}
 	
 }

@@ -9,6 +9,8 @@ import mundo.Mundo;
  */
 public interface Arma {
 
+	void aceita(VisitanteArmas v);
+	
 	/** prepara a arma para ser usada no ponto indicado
 	 * @param p ponto onde  arma está a ser preparada
 	 */

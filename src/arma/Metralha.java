@@ -141,5 +141,11 @@ public class Metralha extends ArmaDefault {
 	public void setDistanciaMax(int distanciaMax) {
 		this.distanciaMax = distanciaMax;
 	}
+
+	@Override
+	public void aceita(VisitanteArmas v) {
+		v.visitaMetralha(this);
+		
+	}
 	
 }

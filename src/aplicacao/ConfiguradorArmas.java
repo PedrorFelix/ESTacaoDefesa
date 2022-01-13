@@ -15,39 +15,27 @@ import inimigo.*;
 
 /** Classe responsável por apresentar a configuração para cada uma das armas.
  */
-public class ConfiguradorArmas {
+public class ConfiguradorArmas implements VisitanteArmas{
 
 	/** apresenta a janela de configuração para a arma
 	 * @param a arma para a qual é preciso apresentar a informação
 	 */
-	public void configuraArma( Arma a ) {
-		// TODO INSTANCEOF estes instanceof têm de desaparecer
-		if( a instanceof Canhao )
-			configuraCanhao( (Canhao) a );
-		else if( a instanceof Metralha )
-			configuraMetralha( (Metralha)a );
-		else if( a instanceof LancaDrones )
-			configuraLancaDrone((LancaDrones)a );
-		else if( a instanceof Laser )
-			configuraLaser( (Laser)a );
-		else if( a instanceof Missil )
-			configuraMissil( (Missil)a );
-	}
+
 	
-	public void configuraCanhao(Canhao c) {
+	public void visitaCanhao(Canhao c) {
 		String resumo = "<html><h3>Canhão</h3>Tempo de disparo: " + c.getDelay()
         				+ "<br>Dano: " + c.getDano() + "<br>Não tem configurações!</html>";
 		JOptionPane.showMessageDialog(null, resumo, "Config. Canhão", JOptionPane.PLAIN_MESSAGE );
 	}
 	
-	public void configuraMetralha(Metralha m) {
+	public void visitaMetralha(Metralha m) {
 		String resumo = "<html><h3>Metralha</h3>Tempo de disparo: " + m.getDelay()
         			     + "<br>Dano: " + m.getDano()
         			     + "<br>Cobertura: " + m.getDistanciaMax() + "<br>Não tem configurações!</html>";
 		JOptionPane.showMessageDialog(null, resumo, "Config. Metralha", JOptionPane.PLAIN_MESSAGE );
 	}
 	
-	public void configuraLancaDrone(LancaDrones l) {
+	public void visitaLancaDrones(LancaDrones l) {
 		// prepara o resumo
 		String resumo = "<html><h3>Drone</h3>Tempo lançamento: " + l.getDelay()
         		        + "<br>Dano: " + l.getDano()
@@ -92,7 +80,7 @@ public class ConfiguradorArmas {
 		l.setTipoDroneLancar( tipo, tipoSel );
 	}
 	
-	public void configuraLaser(Laser l) {
+	public void visitaLaser(Laser l) {
 		// prepara o resumo
 		String resumo = "<html><h3>Laser</h3>Fator Aquec: " + l.getFatorAquecimento() + "<br>Fator Arref: " + l.getFatorArrefecimento() + "</html>";
 
@@ -114,7 +102,7 @@ public class ConfiguradorArmas {
 		l.setDano( slider.getValue()/10.0f );
 	}
 	
-	public void configuraMissil(Missil m) {
+	public void visitaMissil(Missil m) {
 		// prepara o resumo
 		String resumo = "<html><h3>Míssil</h3>Tempo de disparo: " + m.getDelay()
 		                + "<br>Dano: " + m.getDano() + "<br>V. Varrimento: " + m.getVelocidade()  
@@ -146,4 +134,5 @@ public class ConfiguradorArmas {
 		}
 		m.setSeletorInimigo( tipoSel );
 	}
+
 }

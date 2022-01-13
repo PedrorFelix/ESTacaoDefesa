@@ -137,5 +137,11 @@ public class Missil extends ArmaDefault {
 	public int getVelocidade() {
 		return velocidade;
 	}
+
+	@Override
+	public void aceita(VisitanteArmas v) {
+		v.visitaMissil(this);
+		
+	}
 	
 }
