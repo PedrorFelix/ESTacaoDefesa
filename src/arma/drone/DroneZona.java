@@ -56,4 +56,7 @@ public class DroneZona extends DroneDefault {
 			reduzProjeteis();
 		}	
 	}
+	
+	@Override
+	protected void operacaoCinco() {};
 }
