@@ -284,10 +284,10 @@ public abstract class DroneDefault implements Drone {
 				getLancador().droneRegressou( this );
 		}
 	};
-	protected abstract void operacaoDois();
-	protected abstract void operacaoTres();
-	protected abstract void operacaoQuatro();
-	protected abstract void operacaoCinco();
+	protected void operacaoDois() {};
+	protected void operacaoTres() {};
+	protected void operacaoQuatro() {};
+	protected void operacaoCinco() {};
 	
 	@Override
 	public void move() {	
