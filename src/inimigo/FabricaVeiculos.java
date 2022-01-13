@@ -16,10 +16,6 @@ public class FabricaVeiculos {
 	
 	// Constantes para os tipos de drones
 	// tipos? A sério? Ainda há quem use constantes para tipos?? 
-	public static final int DRONE_ZONA = 0;
-	public static final int DRONE_PERSEGUIDOR = 1;
-	public static final int DRONE_SENTINELA = 2;
-	
 	
 	/** Cria e configura um drone zona
 	 * @param inimigoSel tipo de seletor a usar

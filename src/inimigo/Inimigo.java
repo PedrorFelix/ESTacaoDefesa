@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
-import aplicacao.ESTacaoDefesa;
 import mundo.Caminho;
 import mundo.Mundo;
 import prof.jogos2D.image.ComponenteVisual;
@@ -19,14 +18,12 @@ public interface Inimigo {
 	 * <br><b>TODO COMUNICAÇÃO substitutir esta solução por uma melhor</b>
 	 * @param estacao o jogo
 	 */
-	public void setEstacao(ESTacaoDefesa estacao);
 	
 	// TODO COMUNICAÇÃO Este método não deve estar nos Inimigos
 	/** devolve o jogo em que está a ser jogado.
 	 * <br><b>TODO COMUNICAÇÃO substitutir esta solução por uma melhor</b>
 	 * @return  o jogo em que está a ser jogado
 	 */
-	public ESTacaoDefesa getEstacao();
 
 	
 	/**

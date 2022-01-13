@@ -176,13 +176,13 @@ public class ESTacaoDefesa extends JFrame implements ObserverInimigo{
 		}
 		
 		// vai atualizar todos os elementos do jogo
-		mundo.atualizar();  
+		mundo.atualizar();
 		
 		// criar os novos elementos do jogo, são adicionados automaticamente ao mundo
 		java.util.List<Inimigo> criados = gereNivel.createInimigos( mundo );
 		// TODO COMUNICAÇÃO configurar os inimigos para esta estação 
 		for( Inimigo i : criados )
-			i.setEstacao( this );
+			i.addObserverInimigo(this);
 		
 		// verificar se o round está ganho (o perdido é testado no setVidas)
 		if( !nivelAcabado )
