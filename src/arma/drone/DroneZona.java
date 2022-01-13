@@ -19,46 +19,44 @@ public class DroneZona extends DroneDefault {
 	}
 	
 	@Override
-	public void move() {
-		reduzTempoAtivo();
-		reduzTempoDisparo();
-		if( estaVoltar() ) {
-			voarPara( getLancador().getHangar() );
-			if( estaHangar() )
-				getLancador().droneRegressou( this );
-		}
-		// ver se já não tem munições
-		else if( !temMunicoes() ){  
+	public void operacaoUm() {
+		if( !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
 		}
-		// se ainda não chegou ao destino, dirigir-se para ele
-		else if( !chegouDestino() ){ 
+	}
+	
+	@Override
+	public void operacaoDois() {
+		if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
 				setChegou(true);
-		}
-		// este drone não escolhe um alvo e persegue-o
-		else {
-			// escolhe sempre um alvo a atacar, mas não o persegue
-			Inimigo i = escolheAlvo( getPosicao(), 15 );
-			if( i != null ) {
-				setAlvo( i );
-				
-				// dispara sobre o alvo
-				if( !podeDisparar() )
-					return;
-				recomecaCicloDisparo();
-				
-				Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
-				Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
-				ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
-				ca.setPosicaoCentro( pa );
-				getMundo( ).addEfeito( ca );
-				
-				getAlvo().atingido( getDano() );
-				reduzProjeteis();
-			}			
-		}		
+		}	
 	}
+	
+	@Override
+	public void operacaoTres() {
+		Inimigo i = escolheAlvo( getPosicao(), 15 );
+		if( i != null ) {
+			setAlvo( i );
+			
+			// dispara sobre o alvo
+			if( !podeDisparar() )
+				return;
+			recomecaCicloDisparo();
+			
+			Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
+			Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
+			ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
+			ca.setPosicaoCentro( pa );
+			getMundo( ).addEfeito( ca );
+			
+			getAlvo().atingido( getDano() );
+			reduzProjeteis();
+		}	
+	}
+	
+	@Override
+	public void operacaoQuatro() {}
 }

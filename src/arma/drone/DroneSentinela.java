@@ -22,50 +22,49 @@ public class DroneSentinela extends DroneDefault {
 	}
 	
 	@Override
-	public void move() {
-		reduzTempoAtivo();
-		reduzTempoDisparo();
-		if( estaVoltar() ) {
-			voarPara( getLancador().getHangar() );
-			if( estaHangar() )
-				getLancador().droneRegressou( this );
-		}
-		// ver se já passou o tempo ou se já não tem munições
-		else if( !estaAtivo() || !temMunicoes() ){  
+	public void operacaoUm() {
+		if( !estaAtivo() || !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
 		}
-		// se ainda não chegou ao destino, dirigir-se para ele
-		else if( !chegouDestino() ){ 
+	}
+	
+	@Override
+	public void operacaoDois() {
+		if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
 				setChegou(true);
-		}
-		// se não tem alvo, tem de escolher um
-		else if( !temAlvoSelecionado() ){      // ainda não tem alvo?
+		}	
+	}
+	
+	@Override
+	public void operacaoTres() {
+		if( !temAlvoSelecionado() ){   // ainda não tem alvo?
 			setAlvo( escolheAlvo( getPosicao(), 30 ) );
 		}
-		// se tem alvo é preciso aproximar-se dele e atacar
-		else {
-			Point2D.Double pi = voarParaAlvo();
-			if( dentroAlcance(pi) ){ 
-				if( !podeDisparar() )
-					return;
-				recomecaCicloDisparo();
-				
-				Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
-				Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
-				ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
-				ca.setPosicaoCentro( pa );
-				getMundo( ).addEfeito( ca );
-				
-				getAlvo().atingido( getDano() );
-				reduzProjeteis();
-				//se o matou, desliga dele
-				if( getAlvo().estaMorto() ) {
-					setAlvo( null );
-				}
+	}
+	
+	@Override
+	public void operacaoQuatro() {
+		Point2D.Double pi = voarParaAlvo();
+		if( dentroAlcance(pi) ){ 
+			if( !podeDisparar() )
+				return;
+			recomecaCicloDisparo();
+			
+			Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
+			Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
+			ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
+			ca.setPosicaoCentro( pa );
+			getMundo( ).addEfeito( ca );
+			
+			getAlvo().atingido( getDano() );
+			reduzProjeteis();
+			//se o matou, desliga dele
+			if( getAlvo().estaMorto() ) {
+				setAlvo( null );
 			}
-		}		
+		}
 	}
 }

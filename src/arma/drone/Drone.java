@@ -167,4 +167,10 @@ public interface Drone {
 	 * @param alvo o alvo a atacar
 	 */
 	void setAlvo(Inimigo alvo);
+	
+	// operações para o funcionamento dos drones
+	void operacaoUm();
+	void operacaoDois();
+	void operacaoTres();	
+	void operacaoQuatro();
 }

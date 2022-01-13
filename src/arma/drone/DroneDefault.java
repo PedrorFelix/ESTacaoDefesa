@@ -273,4 +273,21 @@ public abstract class DroneDefault implements Drone {
 	public void setAlvo(Inimigo target) {
 		this.alvo = target;
 	}
+	
+	
+	
+	@Override
+	public void move() {
+		reduzTempoAtivo();
+		reduzTempoDisparo();
+		if( estaVoltar() ) {
+			voarPara( getLancador().getHangar() );
+			if( estaHangar() )
+				getLancador().droneRegressou( this );
+		}
+		operacaoUm();
+		operacaoDois();
+		operacaoTres();
+		operacaoQuatro();
+	}
 }
