@@ -22,7 +22,7 @@ public class DroneSentinela extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoUm() {
+	protected void operacaoDois() {
 		if( !estaAtivo() || !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
@@ -30,7 +30,7 @@ public class DroneSentinela extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoDois() {
+	protected void operacaoTres() {
 		if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
@@ -39,14 +39,14 @@ public class DroneSentinela extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoTres() {
+	protected void operacaoQuatro() {
 		if( !temAlvoSelecionado() ){   // ainda não tem alvo?
 			setAlvo( escolheAlvo( getPosicao(), 30 ) );
 		}
 	}
 	
 	@Override
-	public void operacaoQuatro() {
+	protected void operacaoCinco() {
 		Point2D.Double pi = voarParaAlvo();
 		if( dentroAlcance(pi) ){ 
 			if( !podeDisparar() )

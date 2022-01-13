@@ -274,8 +274,8 @@ public abstract class DroneDefault implements Drone {
 		this.alvo = target;
 	}
 	
-	@Override
-	public void move() {
+	// operações para o funcionamento dos drones
+	protected void operacaoUm() {
 		reduzTempoAtivo();
 		reduzTempoDisparo();
 		if( estaVoltar() ) {
@@ -283,9 +283,18 @@ public abstract class DroneDefault implements Drone {
 			if( estaHangar() )
 				getLancador().droneRegressou( this );
 		}
+	};
+	protected void operacaoDois() {};
+	protected void operacaoTres() {};
+	protected void operacaoQuatro() {};
+	protected void operacaoCinco() {};
+	
+	@Override
+	public void move() {	
 		operacaoUm();
 		operacaoDois();
 		operacaoTres();
 		operacaoQuatro();
+		operacaoCinco();
 	}
 }

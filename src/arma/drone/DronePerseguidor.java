@@ -25,7 +25,7 @@ public class DronePerseguidor extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoUm() {
+	protected void operacaoDois() {
 		if( !estaAtivo() || !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
@@ -33,7 +33,7 @@ public class DronePerseguidor extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoDois() {
+	protected void operacaoTres() {
 		if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
@@ -50,7 +50,7 @@ public class DronePerseguidor extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoTres() {
+	protected void operacaoQuatro() {
 		if( !temAlvoSelecionado() ){      // ainda não tem alvo?
 			// este procura sempre na área de destino
 			Inimigo ini = escolheAlvo( getDestino(), 20 );
@@ -64,7 +64,7 @@ public class DronePerseguidor extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoQuatro() {
+	protected void operacaoCinco() {
 		Point2D.Double pi = voarParaAlvo();
 		if( dentroAlcance(pi) ){ 
 			// dispara sobre o alvo

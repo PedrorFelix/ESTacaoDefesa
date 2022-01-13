@@ -19,7 +19,7 @@ public class DroneZona extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoUm() {
+	protected void operacaoDois() {
 		if( !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
@@ -27,7 +27,7 @@ public class DroneZona extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoDois() {
+	protected void operacaoTres() {
 		if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
@@ -36,7 +36,7 @@ public class DroneZona extends DroneDefault {
 	}
 	
 	@Override
-	public void operacaoTres() {
+	protected void operacaoQuatro() {
 		Inimigo i = escolheAlvo( getPosicao(), 15 );
 		if( i != null ) {
 			setAlvo( i );
@@ -56,7 +56,4 @@ public class DroneZona extends DroneDefault {
 			reduzProjeteis();
 		}	
 	}
-	
-	@Override
-	public void operacaoQuatro() {}
 }
