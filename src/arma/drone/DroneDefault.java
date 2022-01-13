@@ -274,8 +274,6 @@ public abstract class DroneDefault implements Drone {
 		this.alvo = target;
 	}
 	
-	
-	
 	@Override
 	public void move() {
 		reduzTempoAtivo();
