@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import arma.*;
 import inimigo.Inimigo;
+import inimigo.ObserverInimigo;
 import mundo.Caminho;
 import mundo.GestorNivel;
 import mundo.Mundo;
@@ -19,7 +20,7 @@ import prof.jogos2D.util.SKeyboard;
 
 /** Janela para o jogo ESTação Defesa
  */
-public class ESTacaoDefesa extends JFrame {
+public class ESTacaoDefesa extends JFrame implements ObserverInimigo{
 	private static final long serialVersionUID = 1L;
 	
 	// dimensões do jogo
@@ -265,7 +266,7 @@ public class ESTacaoDefesa extends JFrame {
 	 * Método que deve ser chamado sempre que um inimigo morre
 	 * @param b inimigo que rebenta
 	 */
-	public void inimigoMorreu( Inimigo ini ){
+	public void inimigoMorreu( ){
 		setMortes( nMortes + 1 );
 		testaVitoria();
 	}
@@ -274,7 +275,7 @@ public class ESTacaoDefesa extends JFrame {
 	 * Método que deve ser chamado sempre que um inimigo sai do mundo
 	 * @param b inimigo que escapa
 	 */
-	public void inimigoPassou( Inimigo ini ){
+	public void inimigoPassou( ){
 		setVidas( nVidas - 1 );
 	}
 	
@@ -543,5 +544,6 @@ public class ESTacaoDefesa extends JFrame {
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.iniciarJogo();
 		game.setVisible( true );
-	}		
+	}
+
 }

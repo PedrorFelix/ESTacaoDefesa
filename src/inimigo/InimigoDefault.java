@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import aplicacao.ESTacaoDefesa;
 import mundo.Caminho;
@@ -35,6 +36,8 @@ public class InimigoDefault implements Inimigo {
 	// TODO COMUNICAÇÃO Esta variável torna o inimigo pouco versátil, pois só pode ser usado
 	//      por este jogo, e não pode ser usado em futuras versões sem ser alterado 
 	private ESTacaoDefesa estacao;
+	
+	public ArrayList<ObserverInimigo> observadores = new ArrayList<ObserverInimigo>();
 	
 	/** Cria um inimigo usando os valors por defeito
 	 */
@@ -154,7 +157,7 @@ public class InimigoDefault implements Inimigo {
 		Point p = meuCaminho.getPoint( (int)posCaminho );
 		if( p == null ){
 			// TODO COMUNICAÇÃO arranjar uma solução melhor (porque há-de o inimigo conhecer a ESTacao?)
-			estacao.inimigoPassou( this );
+			estacao.inimigoPassou( );
 			
 			// colocar a resistência a 0 para indicar que deve ser apagado
 			resistencia = 0;
@@ -194,7 +197,7 @@ public class InimigoDefault implements Inimigo {
 			explosao.setPosicaoCentro( pExplo );
 			getMundo().addEfeito( explosao );
 			// TODO COMUNICAÇÃO arranjar uma solução melhor (porque há-de o inimigo conhecer a ESTacao?
-			estacao.inimigoMorreu( this );
+			estacao.inimigoMorreu();
 			return sobra;
 		}
 		return 0;
@@ -203,6 +206,19 @@ public class InimigoDefault implements Inimigo {
 	@Override
 	public boolean estaMorto() {
 		return resistencia <= 0;
+	}
+
+	@Override
+	public void addObserverInimigo(ObserverInimigo o) {
+		// TODO Auto-generated method stub
+		observadores.add(o);
+		
+	}
+
+	@Override
+	public void removeObserverInimigo(ObserverInimigo o) {
+		// TODO Auto-generated method stub
+		observadores.remove(o);
 	}
 	
 }

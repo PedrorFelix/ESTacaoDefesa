@@ -13,54 +13,54 @@ import javax.swing.SwingConstants;
 import arma.*;
 import inimigo.*;
 
-/** Classe responsÃ¡vel por apresentar a configuraÃ§Ã£o para cada uma das armas.
+/** Classe responsável por apresentar a configuração para cada uma das armas.
  */
 public class ConfiguradorArmas implements VisitanteArmas{
 
-	/** apresenta a janela de configuraÃ§Ã£o para a arma
-	 * @param a arma para a qual Ã© preciso apresentar a informaÃ§Ã£o
+	/** apresenta a janela de configuração para a arma
+	 * @param a arma para a qual Ã© preciso apresentar a informação
 	 */
 
 	
 	public void visitaCanhao(Canhao c) {
-		String resumo = "<html><h3>CanhÃ£o</h3>Tempo de disparo: " + c.getDelay()
-        				+ "<br>Dano: " + c.getDano() + "<br>NÃ£o tem configuraÃ§Ãµes!</html>";
-		JOptionPane.showMessageDialog(null, resumo, "Config. CanhÃ£o", JOptionPane.PLAIN_MESSAGE );
+		String resumo = "<html><h3>Canhão</h3>Tempo de disparo: " + c.getDelay()
+        				+ "<br>Dano: " + c.getDano() + "<br>Não tem configurações!</html>";
+		JOptionPane.showMessageDialog(null, resumo, "Config. Canhão", JOptionPane.PLAIN_MESSAGE );
 	}
 	
 	public void visitaMetralha(Metralha m) {
 		String resumo = "<html><h3>Metralha</h3>Tempo de disparo: " + m.getDelay()
         			     + "<br>Dano: " + m.getDano()
-        			     + "<br>Cobertura: " + m.getDistanciaMax() + "<br>NÃ£o tem configuraÃ§Ãµes!</html>";
+        			     + "<br>Cobertura: " + m.getDistanciaMax() + "<br>Não tem configurações!</html>";
 		JOptionPane.showMessageDialog(null, resumo, "Config. Metralha", JOptionPane.PLAIN_MESSAGE );
 	}
 	
 	public void visitaLancaDrones(LancaDrones l) {
 		// prepara o resumo
-		String resumo = "<html><h3>Drone</h3>Tempo lanÃ§amento: " + l.getDelay()
+		String resumo = "<html><h3>Drone</h3>Tempo lançamento: " + l.getDelay()
         		        + "<br>Dano: " + l.getDano()
-                        + "<br>MÃ¡x. Drones: " + l.getMaxDronesAtivos() + "</html>";
+                        + "<br>Max. Drones: " + l.getMaxDronesAtivos() + "</html>";
 
-		// prepara a janela onde apresentar os dados e as opÃ§Ãµes
+		// prepara a janela onde apresentar os dados e as opções
 		JPanel painelGlobal = new JPanel( new GridLayout(0,1) );
 		painelGlobal.add( new JLabel( resumo, SwingConstants.CENTER ) );
 
-		// opÃ§Ãµes de drones e de ataques
+		// opções de drones e de ataques
 		String []tiposDrone = { "Sentinela", "Zona", "Perseguidor" };
-		String []tiposAtaque = { "Mais Forte", "Mais Fraco", "Mais rÃ¡pido" };
+		String []tiposAtaque = { "Mais Forte", "Mais Fraco", "Mais rápido" };
 		JPanel painelOpcoes = new JPanel( new GridLayout(0, 1) );
 		painelOpcoes.add( new JLabel( "Drone" ) );
 		JComboBox<String> tipoDrone = new JComboBox<String>( tiposDrone );
 		painelOpcoes.add( tipoDrone );
-		painelOpcoes.add( new JLabel( "SeleÃ§Ã£o Alvo" ) );
+		painelOpcoes.add( new JLabel( "Seleção Alvo" ) );
 		JComboBox<String> tipoAtaque = new JComboBox<String>( tiposAtaque );
 		painelOpcoes.add( tipoAtaque );
 		painelGlobal.add( painelOpcoes );
 		
-		// apresenta a janela de configuraÃ§Ã£o
+		// apresenta a janela de configuração
 		JOptionPane.showMessageDialog(null, painelGlobal, "Config. Drone", JOptionPane.PLAIN_MESSAGE );
 
-		// ver qual o tipo de seleÃ§Ã£o a usar
+		// ver qual o tipo de seleção a usar
 		Comparator<Inimigo> tipoSel; 
 		switch( tipoAtaque.getSelectedIndex() ) {
 		default:
@@ -69,7 +69,7 @@ public class ConfiguradorArmas implements VisitanteArmas{
 		case 2: tipoSel = new ComparatorMaisVeloz(); break;
 		}
 		
-		// ver qual o tipo de drone a lanÃ§ar
+		// ver qual o tipo de drone a lançar
 		int tipo;
 		switch( tipoDrone.getSelectedIndex() ) {
 		default:
@@ -84,18 +84,18 @@ public class ConfiguradorArmas implements VisitanteArmas{
 		// prepara o resumo
 		String resumo = "<html><h3>Laser</h3>Fator Aquec: " + l.getFatorAquecimento() + "<br>Fator Arref: " + l.getFatorArrefecimento() + "</html>";
 
-		// prepara a janela onde apresentar os dados e o seletor de potÃªncia
+		// prepara a janela onde apresentar os dados e o seletor de potência
 		JPanel painelGlobal = new JPanel( new GridLayout(0,1) );
 		painelGlobal.add( new JLabel( resumo, SwingConstants.CENTER ) );
 		
-		// cria o slider para escoher a potÃªncia
+		// cria o slider para escoher a potência
 		JSlider slider = new JSlider( JSlider.HORIZONTAL, 1, 10, (int)(l.getDano()*10) );
 		JPanel painelOpcoes = new JPanel( new GridLayout(0, 1) );
-		painelOpcoes.add( new JLabel( "PotÃªncia" ) );
+		painelOpcoes.add( new JLabel( "Potência" ) );
 		painelOpcoes.add( slider );
 		painelGlobal.add( painelOpcoes );
 		
-		// apresenta a janela de configuraÃ§Ã£o
+		// apresenta a janela de configuração
 		JOptionPane.showMessageDialog(null, painelGlobal, "Config. Laser", JOptionPane.PLAIN_MESSAGE );
 
 		// processa a escolha do jogador
@@ -104,27 +104,27 @@ public class ConfiguradorArmas implements VisitanteArmas{
 	
 	public void visitaMissil(Missil m) {
 		// prepara o resumo
-		String resumo = "<html><h3>MÃ­ssil</h3>Tempo de disparo: " + m.getDelay()
+		String resumo = "<html><h3>Míssil</h3>Tempo de disparo: " + m.getDelay()
 		                + "<br>Dano: " + m.getDano() + "<br>V. Varrimento: " + m.getVelocidade()  
-		                + "<br>NÃ£o tem configuraÃ§Ãµes!</html>";
+		                + "<br>Não tem configurações!</html>";
                         
-		// prepara a janela onde apresentar os dados e as opÃ§Ãµes
+		// prepara a janela onde apresentar os dados e as opções
 		JPanel painelGlobal = new JPanel( new GridLayout(0,1) );
 		painelGlobal.add( new JLabel( resumo, SwingConstants.CENTER ) );
 
-		// opÃ§Ãµes de ataques
-		String []tiposAtaque = { "Mais Forte", "Mais Fraco", "Mais rÃ¡pido" };
+		// opções de ataques
+		String []tiposAtaque = { "Mais Forte", "Mais Fraco", "Mais rápido" };
 		JPanel painelOpcoes = new JPanel( new GridLayout(0, 1) );
-		painelOpcoes.add( new JLabel( "SeleÃ§Ã£o Alvo" ) );
+		painelOpcoes.add( new JLabel( "Seleção Alvo" ) );
 		JComboBox<String> tipoSelector = new JComboBox<String>( tiposAtaque );
 		painelOpcoes.add( tipoSelector );
 		painelGlobal.add( painelOpcoes );
 		
 		
-		// apresenta a janela de configuraÃ§Ã£o
-		JOptionPane.showMessageDialog(null, painelGlobal, "Config. MÃ­ssil", JOptionPane.PLAIN_MESSAGE );
+		// apresenta a janela de configuração
+		JOptionPane.showMessageDialog(null, painelGlobal, "Config. Míssil", JOptionPane.PLAIN_MESSAGE );
 
-		// ver qual o tipo de seleÃ§Ã£o a usar
+		// ver qual o tipo de seleção a usar
 		Comparator<Inimigo> tipoSel; 
 		switch( tipoSelector.getSelectedIndex() ) {
 		default:

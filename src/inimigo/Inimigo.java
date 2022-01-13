@@ -133,4 +133,8 @@ public interface Inimigo {
 	 */
 	public boolean estaMorto();
 	
+	public void addObserverInimigo(ObserverInimigo o);
+	
+	public void removeObserverInimigo(ObserverInimigo o);
+	
 }	
