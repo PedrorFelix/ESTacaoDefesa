@@ -188,15 +188,16 @@ public class Mundo {
 		// e verificar se há drones no hangar
 		for( int i = drones.size()-1; i >= 0; i-- ){
 			Drone d = drones.get( i ); 
-			if( d.estaHangar() )
-				drones.remove( i );
+			if( d.estaHangar() ) {
+				drones.remove(i);
+			}
 		}
 		
 		// ver se os efeitos já foram reproduzidos
 		for( int i = efeitos.size()-1; i >= 0; i-- ){
 			ComponenteVisual fx = efeitos.get( i ); 
 			if( fx.numCiclosFeitos() > 0 )
-				efeitos.remove( i );
+				efeitos.remove( i );	
 		}
 	}
 	
