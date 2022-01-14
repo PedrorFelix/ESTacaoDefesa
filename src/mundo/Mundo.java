@@ -30,6 +30,8 @@ public class Mundo {
 	private Vector<Drone> drones = new Vector<Drone>();
 	private ComponenteVisual fundo; // imagem de fundo do mundo
 	
+	private Filtro filtro;	
+
 	private ArrayList<ComponenteVisual> efeitos = new ArrayList<ComponenteVisual>();
 	
 	/**
@@ -217,74 +219,28 @@ public class Mundo {
 	}
 	
 	
-	// TODO SWITCH estas constantes devem desapareder 
-	public static final int FILTRO_RAIO = 0;
-	public static final int FILTRO_LINHA = 1;
-	public static final int FILTRO_TRIANGULO = 2;
-	
 	/** Método que filtra os inimigos de acordo com um critério escolhido pelo cliente
 	 * Os critérios suportados até ao momento são:
 	 *   FILTRO_RAIO, escolhe os inimigos que estão dentro de um circulo
 	 *   FILTRO_LINHA, escolhe os inimigos que intersetam uma linha
 	 *   FILTRO_TRIANGULO, escolhe os inimigos que estão dentro de um triângulo
 	 * 
-	 * <br><b>TODO SWITCH mudar competamente este método</b>
-	 * 
-	 * @param tipoFiltro especifica o filtro a usar
 	 * @param param1 primeiro param do filtro (pode ser o centro, o ponto inicial da linha ou o triangulo)
 	 * @param param2 segundo param do filtro (pode ser o raio ou o ponto final da linha)
 	 * @return a lista de inimigos que obedecem ao critério indicado
 	 */
-	public List<Inimigo> getInimigosFiltrados( int tipoFiltro, Object param1, Object param2 ){
-		// variáveis para os vários tios de filtros
-		Point2D.Double centro = null; // centro do circulo
-		int raio = 0;                 // raio do círculo  
-		
-		Line2D.Double line = null;    // linha ao longo da qual procura por inimigos
-		
-		Polygon triangulo = null;     // triângulo dentro do qual procura por inimigos
-		
-		// TODO SWITCH remover este switch
-		// este switch serve para preparar os params para a filtragem adequada
-		switch( tipoFiltro ) {
-		case FILTRO_LINHA:
-			line = new Line2D.Double( (Point)param1, (Point)param2 );
-			break;
-		case FILTRO_RAIO:
-			centro = (Point2D.Double)param1;
-			raio = (Integer)param2;
-			break;
-		case FILTRO_TRIANGULO:
-			triangulo = (Polygon)param1;
-			break;
-		}
-		
+	public List<Inimigo> getInimigosFiltrados(Object param1, Object param2 ){
 		ArrayList<Inimigo> sel = new ArrayList<Inimigo>();
 		for( Inimigo i : inimigos ) {
-			boolean aceite = false;
-			// TODO SWITCH é para remover isto
-			switch( tipoFiltro ) {
-			case FILTRO_RAIO:
-				aceite = centro.distance( i.getPosicao() ) < raio;
-				break;
-			case FILTRO_LINHA:
-				aceite = line.intersects( i.getBounds() );
-				break;
-			case FILTRO_TRIANGULO:
-				aceite = triangulo.intersects( i.getBounds() );
-			}
-			
-			if( aceite )
+			if( filtro.filtragem(param1, param2, i))
 				sel.add( i );
 		}
 		return sel;
-
 	}
 
 	/** Escolhe qual o inimigo mais adequado dos que obedecem a um dado critério de filtragem.
 	 * Usa o método de filtrar, pelo que padece do mesmo problema dos parâmetros de entrada
 	 * 
-	 * TODO SWITCH os parâmetros derivam do método anterior, se for preciso devem alterar este método
 	 *  
 	 * @param tipoFiltro especifica o filtro a usar
 	 * @param param1 primeiro param do filtro (pode ser o centro, o ponto inicial da linha ou o triangulo)
@@ -293,8 +249,8 @@ public class Mundo {
 	 * @return o inimigo que mais se aproxima do modo de seleção,
 	 *         dentro dos que foram filtrados, ou null se não existir nenhum
 	 */
-	public Inimigo getInimigoMaisAdequado( int tipoFiltro, Object param1, Object param2, Comparator<Inimigo> seletor ){
-		List<Inimigo> alvos = getInimigosFiltrados( tipoFiltro, param1, param2 );
+	public Inimigo getInimigoMaisAdequado( Object param1, Object param2, Comparator<Inimigo> seletor ){
+		List<Inimigo> alvos = getInimigosFiltrados( param1, param2 );
 		try {
 			return Collections.max( alvos, seletor );
 		} catch (NoSuchElementException e) {
@@ -314,5 +270,13 @@ public class Mundo {
 	 */
 	public boolean temEfeitos() {
 		return efeitos.size() > 0;
+	}
+	
+	public Filtro getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(Filtro filtro) {
+		this.filtro = filtro;
 	}
 }

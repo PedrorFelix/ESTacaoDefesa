@@ -12,7 +12,7 @@ import java.util.Comparator;
 
 import inimigo.ComparatorMaisForte;
 import inimigo.Inimigo;
-import mundo.Mundo;
+import mundo.FiltroTriangulo;
 import prof.jogos2D.image.ComponenteAnimado;
 import prof.jogos2D.util.ImageLoader;
 
@@ -83,7 +83,8 @@ public class Missil extends ArmaDefault {
 			// se está pronta vai ver se há inimigos e acertar-lhes
 			if( estaPronta() ) {
 				Point pTiro = new Point( areaDetecao.xpoints[0], areaDetecao.ypoints[0] );
-				Inimigo ini = getMundo().getInimigoMaisAdequado( Mundo.FILTRO_TRIANGULO, areaDetecao, null,
+				getMundo().setFiltro(new FiltroTriangulo());
+				Inimigo ini = getMundo().getInimigoMaisAdequado(areaDetecao, null,
                                                                  seletorInimigo );
 				// há inimigo! Atira-lhe com o míssil para cima!
 				if( ini != null ) {
