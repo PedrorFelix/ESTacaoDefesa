@@ -32,92 +32,76 @@ public class LancaDrones extends ArmaDefault {
 	
 	TipoDrone tipo = tsent;
 	
+	public boolean verif(Point p){
+		
+		// se já tem o máximo de drones não pode fazer nada
+		if( nDronesLancados >= maxDronesAtivos ) return false;
+		
+		// se já lançou há pouco tempo não pode fazer nada
+		if( !estaPronta() ) return false;
+		
+		return true;
+	}
+	
 	private interface TipoDrone{
 		public void libertar(Point p);
 	}
 	private class TipoPerseguidor implements TipoDrone{
 		public void libertar(Point p) {
 			Mundo mundo = getMundo();
-			
-			// se já tem o máximo de drones não pode fazer nada
-			if( nDronesLancados >= maxDronesAtivos ) return;
-			
-			// se já lançou há pouco tempo não pode fazer nada
-			if( !estaPronta() ) return;
-			
 			// vai lançar um drone
-			
-			resetContagem();  // começar a descontar o tempo
-			
-			// passar as coord para double por causa dos drones
-			Point2D.Double dest = new Point2D.Double( p.x, p.y );
-
-			// cria o drone
-			Drone d;
-			d = FabricaVeiculos.criaDronePerseguidor( tipoSelector );
-			d.setDestino( dest );
-			d.setLancador( getThis() );
-			d.setPosicao( (Point2D.Double)hangar.clone() );
-			
-			nDronesLancados++;
-			mundo.addDrone( d );
+			if (verif(p)) {
+				resetContagem(); // começar a descontar o tempo
+				// passar as coord para double por causa dos drones
+				Point2D.Double dest = new Point2D.Double(p.x, p.y);
+				// cria o drone
+				Drone d;
+				d = FabricaVeiculos.criaDronePerseguidor(tipoSelector);
+				d.setDestino(dest);
+				d.setLancador(getThis());
+				d.setPosicao((Point2D.Double) hangar.clone());
+				nDronesLancados++;
+				mundo.addDrone(d);
+			}
 		}
 	}
 	private class TipoSentinela implements TipoDrone{
 		public void libertar(Point p) {	
 			Mundo mundo = getMundo();
-			
-			// se já tem o máximo de drones não pode fazer nada
-			if( nDronesLancados >= maxDronesAtivos ) return;
-			
-			// se já lançou há pouco tempo não pode fazer nada
-			if( !estaPronta() ) return;
-			
 			// vai lançar um drone
-			
-			resetContagem();  // começar a descontar o tempo
-			
-			// passar as coord para double por causa dos drones
-			Point2D.Double dest = new Point2D.Double( p.x, p.y );
-
-			// cria o drone
-			Drone d;
-			d = FabricaVeiculos.criaDroneSentinela( tipoSelector );
-			d.setDestino( dest );
-			d.setLancador( getThis() );
-			d.setPosicao( (Point2D.Double)hangar.clone() );
-			
-			nDronesLancados++;
-			mundo.addDrone( d );
+			if (verif(p)) {
+				resetContagem(); // começar a descontar o tempo
+				// passar as coord para double por causa dos drones
+				Point2D.Double dest = new Point2D.Double(p.x, p.y);
+				// cria o drone
+				Drone d;
+				d = FabricaVeiculos.criaDroneSentinela(tipoSelector);
+				d.setDestino(dest);
+				d.setLancador(getThis());
+				d.setPosicao((Point2D.Double) hangar.clone());
+				nDronesLancados++;
+				mundo.addDrone(d);
+			}
 		}
 	}
 	private class TipoZona implements TipoDrone{
 		public void libertar(Point p) {
 			Mundo mundo = getMundo();
 			
-			// se já tem o máximo de drones não pode fazer nada
-			if( nDronesLancados >= maxDronesAtivos ) return;
-			
-			// se já lançou há pouco tempo não pode fazer nada
-			if( !estaPronta() ) return;
-			
-			// vai lançar um drone
-			
-			resetContagem();  // começar a descontar o tempo
-			
-			// passar as coord para double por causa dos drones
-			Point2D.Double dest = new Point2D.Double( p.x, p.y );
-
-			// cria o drone
-			Drone d;
-			d = FabricaVeiculos.criaDroneZona( tipoSelector );
-			
-			d.setDestino( dest );
-			d.setLancador( getThis());
-			d.setPosicao( (Point2D.Double)hangar.clone() );
-			
-			nDronesLancados++;
-			mundo.addDrone( d );			
+			if (verif(p)) {
+				// vai lançar um drone
+				resetContagem(); // começar a descontar o tempo
+				// passar as coord para double por causa dos drones
+				Point2D.Double dest = new Point2D.Double(p.x, p.y);
+				// cria o drone
+				Drone d;
+				d = FabricaVeiculos.criaDroneZona(tipoSelector);
+				d.setDestino(dest);
+				d.setLancador(getThis());
+				d.setPosicao((Point2D.Double) hangar.clone());
+				nDronesLancados++;
+				mundo.addDrone(d);
+			}			
 		}
 	}
 	
