@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 import inimigo.ComparatorMaisForte;
 import inimigo.Inimigo;
-import mundo.Mundo;
+import mundo.FiltroRaio;
 import prof.jogos2D.image.ComponenteAnimado;
 import prof.jogos2D.image.ComponenteVisual;
 import prof.jogos2D.util.ImageLoader;
@@ -60,8 +60,8 @@ public class Canhao extends ArmaDefault {
 		if( estaPronta() && disparando ) {
 			resetContagem();
 			// ver se acerta em algum inimigo
-			Inimigo ini = getMundo().getInimigoMaisAdequado( Mundo.FILTRO_RAIO,
-					                                         new Point2D.Double(localDisparo.x, localDisparo.y), 10, 
+			getMundo().setFiltro(new FiltroRaio());
+			Inimigo ini = getMundo().getInimigoMaisAdequado( new Point2D.Double(localDisparo.x, localDisparo.y), 10, 
 					                                         new ComparatorMaisForte() );
 			// se não tem inimigo, falhou :-(
 			if( ini == null ) {

@@ -8,6 +8,7 @@ import java.util.Comparator;
 
 import arma.LancaDrones;
 import inimigo.Inimigo;
+import mundo.FiltroRaio;
 import mundo.Mundo;
 import prof.jogos2D.image.ComponenteVisual;
 import prof.jogos2D.util.Vector2D;
@@ -29,7 +30,7 @@ public abstract class DroneDefault implements Drone {
 	private int tempoDisparo = 20;		   // tempo entre disparos
 	private int tickDisparo = 0;           // quantos ticks para disparar 
 	private Comparator<Inimigo> tipoSeletor; // modo do drone selecionar os inimigos 
-	
+
 	private LancaDrones lancador;         // quem o lançou
 
 	private boolean chegou = false;       // já chegou ao destino?
@@ -124,7 +125,8 @@ public abstract class DroneDefault implements Drone {
 	 * @return o iniimgo escolhjido, ou null caso não haja nenhum elegível
 	 */
 	protected Inimigo escolheAlvo( Point2D.Double posicao, int raio ){
-		return mundo.getInimigoMaisAdequado( Mundo.FILTRO_RAIO, posicao, raio, tipoSeletor );
+		mundo.setFiltro(new FiltroRaio());
+		return mundo.getInimigoMaisAdequado(posicao, raio, tipoSeletor );
 	}
 
 	@Override

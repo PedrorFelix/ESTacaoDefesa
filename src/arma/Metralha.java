@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import inimigo.Inimigo;
-import mundo.Mundo;
+import mundo.FiltroLinha;
 import prof.jogos2D.image.ComponenteAnimado;
 import prof.jogos2D.util.ImageLoader;
 import prof.jogos2D.util.Vector2D;
@@ -61,7 +61,8 @@ public class Metralha extends ArmaDefault {
 		
 		limitarMetralha( p );
 		// ver os inimigos afetados pela metralha e acertar-lhes 
-		List<Inimigo> inis = getMundo().getInimigosFiltrados( Mundo.FILTRO_LINHA, inicioMetralha, fimMetralha );
+		getMundo().setFiltro(new FiltroLinha());
+		List<Inimigo> inis = getMundo().getInimigosFiltrados( inicioMetralha, fimMetralha );
 		for( Inimigo i : inis )
 			i.atingido( 1 );
 		

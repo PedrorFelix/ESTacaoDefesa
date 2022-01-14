@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 import inimigo.ComparatorMaisForte;
 import inimigo.Inimigo;
-import mundo.Mundo;
+import mundo.FiltroRaio;
 import prof.jogos2D.image.ComponenteAnimado;
 import prof.jogos2D.util.ImageLoader;
 
@@ -79,8 +79,8 @@ public class Laser extends ArmaDefault {
 		// se está a disparar vai aquecendo
 		if( disparando ) {
 			temperatura += fatorAquecimento*getDano();
-			Inimigo ini = getMundo().getInimigoMaisAdequado( Mundo.FILTRO_RAIO, 
-															 new Point2D.Double(localDisparo.x, localDisparo.y), 10, 
+			getMundo().setFiltro(new FiltroRaio());
+			Inimigo ini = getMundo().getInimigoMaisAdequado( new Point2D.Double(localDisparo.x, localDisparo.y), 10, 
                                                              new ComparatorMaisForte() );
 			// yes! Tem inimigo, vai queimá-lo :-)
 			if( ini != null ) {
