@@ -23,37 +23,29 @@ public class DroneZona extends DroneDefault {
 		if( !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
-		}
-	}
-	
-	@Override
-	protected void operacaoTres() {
-		if( !chegouDestino() ){ 
+		} else if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
 				setChegou(true);
-		}	
-	}
-	
-	@Override
-	protected void operacaoQuatro() {
-		Inimigo i = escolheAlvo( getPosicao(), 15 );
-		if( i != null ) {
-			setAlvo( i );
-			
-			// dispara sobre o alvo
-			if( !podeDisparar() )
-				return;
-			recomecaCicloDisparo();
-			
-			Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
-			Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
-			ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
-			ca.setPosicaoCentro( pa );
-			getMundo( ).addEfeito( ca );
-			
-			getAlvo().atingido( getDano() );
-			reduzProjeteis();
-		}	
+		} else {
+			Inimigo i = escolheAlvo( getPosicao(), 15 );
+			if( i != null ) {
+				setAlvo( i );
+				
+				// dispara sobre o alvo
+				if( !podeDisparar() )
+					return;
+				recomecaCicloDisparo();
+				
+				Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
+				Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
+				ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
+				ca.setPosicaoCentro( pa );
+				getMundo( ).addEfeito( ca );
+				
+				getAlvo().atingido( getDano() );
+				reduzProjeteis();
+			}
+		}
 	}
 }

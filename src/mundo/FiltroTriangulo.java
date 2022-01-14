@@ -11,5 +11,4 @@ public class FiltroTriangulo implements Filtro {
 		Polygon triangulo = (Polygon)param1;
 		return triangulo.intersects( i.getBounds());
 	}
-
 }

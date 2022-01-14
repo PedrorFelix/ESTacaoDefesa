@@ -287,16 +287,11 @@ public abstract class DroneDefault implements Drone {
 		}
 	};
 	protected void operacaoDois() {};
-	protected void operacaoTres() {};
-	protected void operacaoQuatro() {};
-	protected void operacaoCinco() {};
+	
 	
 	@Override
 	public void move() {	
 		operacaoUm();
 		operacaoDois();
-		operacaoTres();
-		operacaoQuatro();
-		operacaoCinco();
 	}
 }

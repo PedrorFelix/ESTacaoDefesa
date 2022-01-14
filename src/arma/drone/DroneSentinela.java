@@ -26,44 +26,31 @@ public class DroneSentinela extends DroneDefault {
 		if( !estaAtivo() || !temMunicoes() ){  
 			voarPara( getLancador().getHangar() );
 			setVoltar(true);
-		}
-	}
-	
-	@Override
-	protected void operacaoTres() {
-		if( !chegouDestino() ){ 
+		} else if( !chegouDestino() ){ 
 			voarPara( getDestino() );
 			if( getDestino().distanceSq( getPosicao() ) < 4 )
 				setChegou(true);
-		}	
-	}
-	
-	@Override
-	protected void operacaoQuatro() {
-		if( !temAlvoSelecionado() ){   // ainda não tem alvo?
+		} else if( !temAlvoSelecionado() ){   // ainda não tem alvo?
 			setAlvo( escolheAlvo( getPosicao(), 30 ) );
-		}
-	}
-	
-	@Override
-	protected void operacaoCinco() {
-		Point2D.Double pi = voarParaAlvo();
-		if( dentroAlcance(pi) ){ 
-			if( !podeDisparar() )
-				return;
-			recomecaCicloDisparo();
-			
-			Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
-			Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
-			ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
-			ca.setPosicaoCentro( pa );
-			getMundo( ).addEfeito( ca );
-			
-			getAlvo().atingido( getDano() );
-			reduzProjeteis();
-			//se o matou, desliga dele
-			if( getAlvo().estaMorto() ) {
-				setAlvo( null );
+		} else {
+			Point2D.Double pi = voarParaAlvo();
+			if( dentroAlcance(pi) ){ 
+				if( !podeDisparar() )
+					return;
+				recomecaCicloDisparo();
+				
+				Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
+				Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
+				ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
+				ca.setPosicaoCentro( pa );
+				getMundo( ).addEfeito( ca );
+				
+				getAlvo().atingido( getDano() );
+				reduzProjeteis();
+				//se o matou, desliga dele
+				if( getAlvo().estaMorto() ) {
+					setAlvo( null );
+				}
 			}
 		}
 	}
