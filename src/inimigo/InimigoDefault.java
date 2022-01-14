@@ -32,9 +32,6 @@ public class InimigoDefault implements Inimigo {
 	private float resistencia;        // o valor de resistência do inimigo
 	private float resistInicial;      // resistencia inicial
 	
-	// TODO COMUNICAÇÃO Esta variável torna o inimigo pouco versátil, pois só pode ser usado
-	//      por este jogo, e não pode ser usado em futuras versões sem ser alterado 
-	
 	public ArrayList<ObserverInimigo> observadores = new ArrayList<ObserverInimigo>();
 	
 	/** Cria um inimigo usando os valors por defeito
@@ -144,7 +141,6 @@ public class InimigoDefault implements Inimigo {
 		posCaminho += velocidade;
 		Point p = meuCaminho.getPoint( (int)posCaminho );
 		if( p == null ){
-			// TODO COMUNICAÇÃO arranjar uma solução melhor (porque há-de o inimigo conhecer a ESTacao?)
 			for(ObserverInimigo o : observadores) {
 				o.inimigoPassou();
 			}
@@ -186,7 +182,6 @@ public class InimigoDefault implements Inimigo {
 			ComponenteAnimado explosao = new ComponenteAnimado( pExplo, img, 17, 2 );
 			explosao.setPosicaoCentro( pExplo );
 			getMundo().addEfeito( explosao );
-			// TODO COMUNICAÇÃO arranjar uma solução melhor (porque há-de o inimigo conhecer a ESTacao?
 			for(ObserverInimigo o: observadores) {
 				o.inimigoMorreu();
 			}
@@ -203,14 +198,12 @@ public class InimigoDefault implements Inimigo {
 
 	@Override
 	public void addObserverInimigo(ObserverInimigo o) {
-		// TODO Auto-generated method stub
 		observadores.add(o);
 		
 	}
 
 	@Override
 	public void removeObserverInimigo(ObserverInimigo o) {
-		// TODO Auto-generated method stub
 		observadores.remove(o);
 	}
 	

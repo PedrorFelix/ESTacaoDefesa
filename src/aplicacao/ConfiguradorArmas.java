@@ -70,14 +70,13 @@ public class ConfiguradorArmas implements VisitanteArmas{
 		}
 		
 		// ver qual o tipo de drone a lançar
-		int tipo;
+		
 		switch( tipoDrone.getSelectedIndex() ) {
 		default:
-		case 0: tipo = FabricaVeiculos.DRONE_SENTINELA; break;
-		case 1: tipo = FabricaVeiculos.DRONE_ZONA; break;
-		case 2: tipo = FabricaVeiculos.DRONE_PERSEGUIDOR; break;
+		case 0: l.mudaTipoSentinela(tipoSel); break;
+		case 1: l.mudaTipoZona(tipoSel); break;
+		case 2: l.mudaTipoPerseguidor(tipoSel); break;
 		}
-		l.setTipoDroneLancar( tipo, tipoSel );
 	}
 	
 	public void visitaLaser(Laser l) {

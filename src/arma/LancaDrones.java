@@ -23,9 +23,107 @@ public class LancaDrones extends ArmaDefault {
 	private int maxDronesAtivos;     // nº máximo de drones ativos
 	private int nDronesLancados = 0; // quantos drones estão já lançados 
 
-	private int tipoDrone;  // o tipo de drone a lançar (a váriavel tipo indica que há problemas!!!) 
 	private Comparator<Inimigo> tipoSelector = new ComparatorMaisForte(); // tipo de seletor a usar
+	
+	
+	TipoPerseguidor tpers = new TipoPerseguidor();
+	TipoSentinela tsent = new TipoSentinela();
+	TipoZona tzona = new TipoZona();
+	
+	TipoDrone tipo = tsent;
+	
+	private interface TipoDrone{
+		public void libertar(Point p);
+	}
+	private class TipoPerseguidor implements TipoDrone{
+		public void libertar(Point p) {
+			Mundo mundo = getMundo();
+			
+			// se já tem o máximo de drones não pode fazer nada
+			if( nDronesLancados >= maxDronesAtivos ) return;
+			
+			// se já lançou há pouco tempo não pode fazer nada
+			if( !estaPronta() ) return;
+			
+			// vai lançar um drone
+			
+			resetContagem();  // começar a descontar o tempo
+			
+			// passar as coord para double por causa dos drones
+			Point2D.Double dest = new Point2D.Double( p.x, p.y );
 
+			// cria o drone
+			Drone d;
+			d = FabricaVeiculos.criaDronePerseguidor( tipoSelector );
+			d.setDestino( dest );
+			d.setLancador( getThis() );
+			d.setPosicao( (Point2D.Double)hangar.clone() );
+			
+			nDronesLancados++;
+			mundo.addDrone( d );
+		}
+	}
+	private class TipoSentinela implements TipoDrone{
+		public void libertar(Point p) {	
+			Mundo mundo = getMundo();
+			
+			// se já tem o máximo de drones não pode fazer nada
+			if( nDronesLancados >= maxDronesAtivos ) return;
+			
+			// se já lançou há pouco tempo não pode fazer nada
+			if( !estaPronta() ) return;
+			
+			// vai lançar um drone
+			
+			resetContagem();  // começar a descontar o tempo
+			
+			// passar as coord para double por causa dos drones
+			Point2D.Double dest = new Point2D.Double( p.x, p.y );
+
+			// cria o drone
+			Drone d;
+			d = FabricaVeiculos.criaDroneSentinela( tipoSelector );
+			d.setDestino( dest );
+			d.setLancador( getThis() );
+			d.setPosicao( (Point2D.Double)hangar.clone() );
+			
+			nDronesLancados++;
+			mundo.addDrone( d );
+		}
+	}
+	private class TipoZona implements TipoDrone{
+		public void libertar(Point p) {
+			Mundo mundo = getMundo();
+			
+			// se já tem o máximo de drones não pode fazer nada
+			if( nDronesLancados >= maxDronesAtivos ) return;
+			
+			// se já lançou há pouco tempo não pode fazer nada
+			if( !estaPronta() ) return;
+			
+			// vai lançar um drone
+			
+			resetContagem();  // começar a descontar o tempo
+			
+			// passar as coord para double por causa dos drones
+			Point2D.Double dest = new Point2D.Double( p.x, p.y );
+
+			// cria o drone
+			Drone d;
+			d = FabricaVeiculos.criaDroneZona( tipoSelector );
+			
+			d.setDestino( dest );
+			d.setLancador( getThis());
+			d.setPosicao( (Point2D.Double)hangar.clone() );
+			
+			nDronesLancados++;
+			mundo.addDrone( d );			
+		}
+	}
+	
+	public LancaDrones getThis() {
+		return this;
+	}
 	/** Cria um lançador de drones
 	 * @param mira imagem da mira
 	 * @param hangar posição de partida dos drones
@@ -33,14 +131,12 @@ public class LancaDrones extends ArmaDefault {
 	 * @param tipoDrone tipo de drone a lançar 
 	 * @param maxDronesAtivos número máximo de drones simultâneos
 	 */
-	public LancaDrones( ComponenteVisual mira, Point2D.Double hangar, int delay, int tipoDrone, int maxDronesAtivos) {
+	public LancaDrones( ComponenteVisual mira, Point2D.Double hangar, int delay, int maxDronesAtivos) {
 		super( 0, delay );
 		this.maxDronesAtivos = maxDronesAtivos;
 		this.hangar = hangar;
 
 		this.mira = mira;
-		
-		this.tipoDrone = tipoDrone;
 	}
 
 	@Override
@@ -51,56 +147,25 @@ public class LancaDrones extends ArmaDefault {
 	public void apontar(Point p) {
 	}
 	
-	@Override
-	public void libertar(Point p) {
-		Mundo mundo = getMundo();
-		
-		// se já tem o máximo de drones não pode fazer nada
-		if( nDronesLancados >= maxDronesAtivos ) return;
-		
-		// se já lançou há pouco tempo não pode fazer nada
-		if( !estaPronta() ) return;
-		
-		// vai lançar um drone
-		
-		resetContagem();  // começar a descontar o tempo
-		
-		// passar as coord para double por causa dos drones
-		Point2D.Double dest = new Point2D.Double( p.x, p.y );
-
-		// cria o drone
-		Drone d;
-		
-		// TODO SWITCH um switch tipo!?!?!?!?!
-		switch( tipoDrone ) {
-		default:
-		case FabricaVeiculos.DRONE_PERSEGUIDOR:
-			d = FabricaVeiculos.criaDronePerseguidor( tipoSelector );
-			break;
-		case FabricaVeiculos.DRONE_ZONA:
-			d = FabricaVeiculos.criaDroneZona( tipoSelector );
-			break;
-		case FabricaVeiculos.DRONE_SENTINELA:
-			d = FabricaVeiculos.criaDroneSentinela( tipoSelector );
-			break;
-		}
-		d.setDestino( dest );
-		d.setLancador( this );
-		d.setPosicao( (Point2D.Double)hangar.clone() );
-		
-		nDronesLancados++;
-		mundo.addDrone( d );
-	}
-	
 	/** define qual o drone a criar e respetivo seletor
 	 * @param tipo  tipo de drone (ainda usam inteiros para isto?)
 	 * @param tipoSel tipo de seletor (aqui já se usam objetos, muito bem)
 	 */
-	public void setTipoDroneLancar(int tipo, Comparator<Inimigo> tipoSel) {
-		tipoDrone = tipo;
+	public void mudaTipoPerseguidor(Comparator<Inimigo> tipoSel) {
+		tipo = tpers;
 		tipoSelector = tipoSel;
 	}
 	
+	public void mudaTipoSentinela(Comparator<Inimigo> tipoSel) {
+		tipo=tsent;
+		tipoSelector =tipoSel;
+	}
+	
+	public void mudaTipoZona(Comparator<Inimigo> tipoSel) {
+		tipo = tzona;
+		tipoSelector =tipoSel;
+	}
+
 	@Override
 	public void desenhar(Graphics2D g, int cx, int cy) {
 		mira.setPosicaoCentro( new Point( cx, cy ) );

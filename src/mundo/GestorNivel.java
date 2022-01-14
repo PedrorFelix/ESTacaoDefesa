@@ -142,7 +142,7 @@ public class GestorNivel {
 		int delay = Integer.parseInt( fin.readLine() );
 		int maxDrones = Integer.parseInt( fin.readLine() );
 		ComponenteVisual mira = lerComponenteVisual( fin.readLine() );
-		armasDisponiveis.add( new LancaDrones( mira, posHangar, delay, FabricaVeiculos.DRONE_PERSEGUIDOR, maxDrones) );
+		armasDisponiveis.add( new LancaDrones( mira, posHangar, delay, maxDrones) );
 	}
 	
 	private void lerLaser(BufferedReader fin) throws IOException {

@@ -14,9 +14,6 @@ import prof.jogos2D.util.ImageLoader;
  */
 public class FabricaVeiculos {
 	
-	// Constantes para os tipos de drones
-	// tipos? A sério? Ainda há quem use constantes para tipos?? 
-	
 	/** Cria e configura um drone zona
 	 * @param inimigoSel tipo de seletor a usar
 	 * @return o drone criado
