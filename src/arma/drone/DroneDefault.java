@@ -304,13 +304,26 @@ public abstract class DroneDefault implements Drone {
 			if( estaHangar() )
 				getLancador().droneRegressou( this );
 		}
-	};
-	protected void operacaoDois() {};
+	}
 	
+	protected void operacaoDois() {
+		voarPara( getLancador().getHangar() );
+		setVoltar(true);
+	}
+	
+	protected void operacaoTres() {
+		voarPara( getDestino() );
+		if( getDestino().distanceSq( getPosicao() ) < 4 )
+			setChegou(true);
+	}
+	
+	protected void operacaoQuatro() {}
 	
 	@Override
 	public void move() {	
 		operacaoUm();
 		operacaoDois();
+		operacaoTres();
+		operacaoQuatro();
 	}
 }

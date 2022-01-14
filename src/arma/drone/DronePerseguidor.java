@@ -21,12 +21,14 @@ public class DronePerseguidor extends DroneDefault {
 	@Override
 	protected void operacaoDois() {
 		if( !estaAtivo() || !temMunicoes() ){  
-			voarPara( getLancador().getHangar() );
-			setVoltar(true);
-		} else if( !chegouDestino() ){ 
-			voarPara( getDestino() );
-			if( getDestino().distanceSq( getPosicao() ) < 4 )
-				setChegou(true);
+			super.operacaoDois();
+		}
+	}	
+	
+	@Override
+	protected void operacaoTres() {
+		if( !chegouDestino() ){ 
+			super.operacaoTres();
 			// se entretanto passar por lá um alvo escolhe-o
 			Inimigo ini = escolheAlvo( getDestino(), 20 );
 			if( ini != null ){
@@ -35,7 +37,12 @@ public class DronePerseguidor extends DroneDefault {
 				// chegado ao destino
 				setChegou( true );
 			}
-		} else if( !temAlvoSelecionado() ){      // ainda não tem alvo?
+		}
+	}
+	
+	@Override
+	protected void operacaoQuatro() {
+		if( !temAlvoSelecionado() ){      // ainda não tem alvo?
 			// este procura sempre na área de destino
 			Inimigo ini = escolheAlvo( getDestino(), 20 );
 			if( ini != null ){

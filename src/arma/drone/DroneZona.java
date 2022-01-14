@@ -15,20 +15,24 @@ public class DroneZona extends DroneDefault {
 	@Override
 	protected void operacaoDois() {
 		if( !temMunicoes() ){  
-			voarPara( getLancador().getHangar() );
-			setVoltar(true);
-		} else if( !chegouDestino() ){ 
-			voarPara( getDestino() );
-			if( getDestino().distanceSq( getPosicao() ) < 4 )
-				setChegou(true);
-		} else {
-			Inimigo i = escolheAlvo( getPosicao(), 15 );
-			if( i != null ) {
-				setAlvo( i );
-				
-				// dispara sobre o alvo
-				dispara();
-			}
+			super.operacaoDois();
+		}
+	}
+	
+	@Override
+	protected void operacaoTres() {
+		if( !chegouDestino() ){ 
+			super.operacaoTres();
+		}
+	}
+	
+	@Override
+	protected void operacaoQuatro() {
+		Inimigo i = escolheAlvo( getPosicao(), 15 );
+		if( i != null ) {
+			setAlvo( i );
+			// dispara sobre o alvo
+			dispara();
 		}
 	}
 }

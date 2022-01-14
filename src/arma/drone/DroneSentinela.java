@@ -17,13 +17,20 @@ public class DroneSentinela extends DroneDefault {
 	@Override
 	protected void operacaoDois() {
 		if( !estaAtivo() || !temMunicoes() ){  
-			voarPara( getLancador().getHangar() );
-			setVoltar(true);
-		} else if( !chegouDestino() ){ 
-			voarPara( getDestino() );
-			if( getDestino().distanceSq( getPosicao() ) < 4 )
-				setChegou(true);
-		} else if( !temAlvoSelecionado() ){   // ainda não tem alvo?
+			super.operacaoDois();
+		}
+	}	
+	
+	@Override
+	protected void operacaoTres() {
+		if( !chegouDestino() ){ 
+			super.operacaoTres();
+		}
+	}	
+		
+	@Override
+	protected void operacaoQuatro() {	
+		if( !temAlvoSelecionado() ){   // ainda não tem alvo?
 			setAlvo( escolheAlvo( getPosicao(), 30 ) );
 		} else {
 			Point2D.Double pi = voarParaAlvo();
