@@ -317,7 +317,7 @@ public abstract class DroneDefault implements Drone {
 			setChegou(true);
 	}
 	
-	protected void operacaoQuatro() {}
+	protected abstract void operacaoQuatro();
 	
 	@Override
 	public void move() {	
