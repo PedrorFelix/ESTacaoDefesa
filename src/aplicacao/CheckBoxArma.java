@@ -63,6 +63,7 @@ public class CheckBoxArma extends JCheckBox {
 		g.fillOval( xStatus, 32, 4, 4);
 		g.setColor( Color.BLACK );
 		g.drawOval( xStatus, 32, 4, 4);
-		resumo.paintResumo( arma, g );
+		resumo.paintResumo( g );
+		arma.aceita(resumo);
 	}
 }
