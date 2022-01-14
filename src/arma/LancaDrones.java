@@ -32,6 +32,10 @@ public class LancaDrones extends ArmaDefault {
 	
 	TipoDrone tipo = tsent;
 	
+	public void libertar(Point p) {
+		tipo.libertar(p);
+	}
+	
 	public boolean verif(Point p){
 		
 		// se já tem o máximo de drones não pode fazer nada
