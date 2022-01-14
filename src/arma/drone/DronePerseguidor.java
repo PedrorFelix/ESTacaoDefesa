@@ -1,14 +1,8 @@
 package arma.drone;
 
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-
 import inimigo.Inimigo;
-import prof.jogos2D.image.ComponenteAnimado;
 import prof.jogos2D.image.ComponenteVisual;
-import prof.jogos2D.util.ImageLoader;
 
 /** Drone que persegue os inimigos que passam pelo seu local de operação.
  * Não precisa de chegar ao local para escolher o alvo.
@@ -54,18 +48,7 @@ public class DronePerseguidor extends DroneDefault {
 			Point2D.Double pi = voarParaAlvo();
 			if( dentroAlcance(pi) ){ 
 				// dispara sobre o alvo
-				if( !podeDisparar() )
-					return;
-				recomecaCicloDisparo();
-				
-				Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
-				Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
-				ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
-				ca.setPosicaoCentro( pa );
-				getMundo( ).addEfeito( ca );
-				
-				getAlvo().atingido( getDano() );
-				reduzProjeteis();
+				dispara();
 				//se o matou, desliga dele
 				if( getAlvo().estaMorto() ) {
 					setAlvo( null );

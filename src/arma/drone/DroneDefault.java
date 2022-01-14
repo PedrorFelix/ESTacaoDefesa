@@ -2,15 +2,19 @@ package arma.drone;
 
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.Comparator;
 
 import arma.LancaDrones;
 import inimigo.Inimigo;
 import mundo.FiltroRaio;
 import mundo.Mundo;
+import prof.jogos2D.image.ComponenteAnimado;
 import prof.jogos2D.image.ComponenteVisual;
+import prof.jogos2D.util.ImageLoader;
 import prof.jogos2D.util.Vector2D;
 
 /**
@@ -274,6 +278,21 @@ public abstract class DroneDefault implements Drone {
 	@Override
 	public void setAlvo(Inimigo target) {
 		this.alvo = target;
+	}
+	
+	public void dispara() {
+		if( !podeDisparar() )
+			return;
+		recomecaCicloDisparo();
+		
+		Image img = ImageLoader.getLoader().getImage("data/fx/impacto_pequeno.png" );
+		Point pa = new Point( (int)getAlvo().getPosicao().x, (int)getAlvo().getPosicao().y );
+		ComponenteAnimado ca = new ComponenteAnimado( pa, (BufferedImage)img, 5, 3 );
+		ca.setPosicaoCentro( pa );
+		getMundo( ).addEfeito( ca );
+		
+		getAlvo().atingido( getDano() );
+		reduzProjeteis();
 	}
 	
 	// operações para o funcionamento dos drones
